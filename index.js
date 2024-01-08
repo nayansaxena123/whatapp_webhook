@@ -12,7 +12,7 @@ app.get("/whatsapp_webhook", (req, res) => {
 
     const mytoken="12345@quadra"
 
-    if(mode==="subscribe" && token==="12345@quadra"){
+    if(mode=="subscribe" && token=="12345@quadra"){
         res.status(200).send(challange);
         console.log(JSON.stringify(req.body,'response'));
     }else{
