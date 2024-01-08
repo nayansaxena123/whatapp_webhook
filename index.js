@@ -30,8 +30,8 @@ app.post('/whatsapp_webhook', (req, res) => {
     if(body_params.object){
         if(body_params.entry &&
              body_params.entry[0].changes && 
-             body_params.entry[0].changes[0].value.message &&
-             body_params.entry[0].changes[0].value.message[0] 
+             body_params.entry[0].changes[0].value.messages &&
+             body_params.entry[0].changes[0].value.messages[0] 
              ){
                 let phn_no_id= body_params.entry[0].changes[0].value.metadata.phone_number_id;
                 let from=body_params.entry[0].changes[0].value.messages[0].from;
