@@ -2,6 +2,11 @@ const express = require("express");
 const app = express();
 const body_parser=require('body-parser');
 const port = 8800;
+var xhub = require('express-x-hub');
+var received_updates = [];
+
+
+app.use(xhub({ algorithm: 'sha1', secret: "36246e7dd97d4b4c0c1bb44a33a334a5"}));
 
 
 
@@ -39,6 +44,12 @@ app.post('/whatsapp_webhook', (req, res) => {
     // let body_params=req.body
     console.log(req.body,'req') // print all response
 
+    if (!req.isXHubValid()) {
+      console.log('Warning - request header X-Hub-Signature not present or invalid');
+      res.sendStatus(401);
+      return;
+    }
+
     // if(body_params.object){
     //     if(body_params.entry &&
     //          body_params.entry[0].changes && 
@@ -56,6 +67,9 @@ app.post('/whatsapp_webhook', (req, res) => {
   
     //messageFrom=req.body['data']['from'] // sender number
     //messageMsg=req.body['data']['body'] // Message text
+    console.log('request header X-Hub-Signature validated');
+  // Process the Facebook updates here
+  received_updates.unshift(req.body);
     res.status(200);
   })
   
