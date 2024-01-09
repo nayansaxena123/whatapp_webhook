@@ -67,7 +67,7 @@ app.post('/whatsapp_webhook', (req, res) => {
   
     //messageFrom=req.body['data']['from'] // sender number
     //messageMsg=req.body['data']['body'] // Message text
-    let msg_body=body.entry[0].changes[0].value.messages[0].text.body;
+    let msg_body=req.body.entry[0].changes[0].value.messages[0].text.body;
     console.log('request header X-Hub-Signature validated',msg_body);
    
   // Process the Facebook updates here
