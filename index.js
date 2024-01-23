@@ -166,7 +166,8 @@ try {
     // Process the Facebook updates here
     received_updates.unshift(req.body);
     
-    res.status(200);
+    // res.status(200);
+    res.end();
     } catch (error) {
       console.log(error,'error from inside')
     }
