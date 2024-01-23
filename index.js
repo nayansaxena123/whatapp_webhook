@@ -70,7 +70,7 @@ async function finduserindb() {
   if (user == null) {
     console.log('not found');
    let redult= await mSchema.create({
-        name: "whatsapp user",
+        name: username,
         number: sendersnum,
         message: [{
           from: username,
