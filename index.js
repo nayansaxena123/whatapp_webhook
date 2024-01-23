@@ -6,6 +6,28 @@ var xhub = require('express-x-hub');
 var received_updates = [];
 let sendersnum;
 let sendersMsg;
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
+
+mongoose.connect('mongodb+srv://nayansaxena123:nynquad@quadrafortweb.p5zncnb.mongodb.net/?retryWrites=true&w=majority').then(()=>console.log('Mongo DB connected'));
+
+
+const msgSchema = new mongoose.Schema({
+  name: String,
+  number: String,
+  message: [Schema.Types.Mixed]
+},
+  {
+    strict: false
+  }
+  ,
+  {
+    timestamps: true
+  })
+
+mongoose.model('replyMsg',msgSchema)
+
+const mSchema=mongoose.model('replyMsg',msgSchema)
 
 
 app.use(xhub({ algorithm: 'sha1', secret: "36246e7dd97d4b4c0c1bb44a33a334a5"}));
@@ -39,6 +61,39 @@ app.get("/whatsapp_webhook", (req, res) => {
     // }
   res.send("Hello World!");
 });
+
+async function finduserindb(){
+  let user=await mSchema.findOne({number:sendersnum})
+  console.log(user,'user')
+  
+  if(user.length==0){
+    console.log('not found');
+    async function test(){
+      await mSchema.create({
+        name:"whatsapp user",
+        number:sendersnum,
+        message:[{
+          from:'whatsapp user',
+          msg:sendersMsg,
+          mark:'unread'
+  
+        }]
+      })
+    }
+    test();
+  }else{
+    async function tst(){
+      await mSchema.updateOne(
+        {number:sendersnum},
+        {$push:{message:{
+          from:'whatsapp user',
+          msg:sendersMsg
+        }}}
+        )
+    }
+    tst();
+  }
+}
 
 
 app.post('/whatsapp_webhook', (req, res) => {
@@ -75,6 +130,7 @@ app.post('/whatsapp_webhook', (req, res) => {
     sendersnum=from;
     sendersMsg=msg_body;
     console.log(sendersMsg,sendersnum,'cus-naming')
+    finduserindb();
    
   // Process the Facebook updates here
   received_updates.unshift(req.body);
