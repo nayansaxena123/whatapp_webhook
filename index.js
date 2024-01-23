@@ -41,7 +41,17 @@ app.get("/whatsapp_webhook", (req, res) => {
   // let mode=req.query["hub.mode"];
   // let challange=req.query["hub.challenge"];
   // let token=req.query["hub.verify_token"];
-  console.log('test')
+  console.log(req.body,'teeest')
+  console.log(req.body.length,'test')
+  let a=(!req.body.nayan);
+
+  if(req.body.length==0){
+    console.log(req.body,'teeetttst')
+    console.log("true")
+  }else{
+    console.log("undefined")
+  }
+  console.log(a)
 
   // async function finduserindb(){
   //   let user=await mSchema.findOne({number:"8602955170"})
@@ -76,7 +86,7 @@ app.get("/whatsapp_webhook", (req, res) => {
   //   }
   // }
 
-  finduserindb();
+  // finduserindb();
 
 
 
@@ -145,13 +155,13 @@ app.post('/whatsapp_webhook', (req, res) => {
 
   //messageFrom=req.body['data']['from'] // sender number
   //messageMsg=req.body['data']['body'] // Message text
-  
+  let a=(!req.body);
 
   try {
     // Code that might throw an exception
     // ...
 
-    if(req.body.entry[0].changes[0].value.messages[0].text.body==undefined || req.body.entry[0].changes[0].value.messages[0].from==undefined ){
+    if(req.body.length==undefined){
       console.log('undefind')
     }else{
 
