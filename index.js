@@ -107,6 +107,10 @@ app.post('/whatsapp_webhook', (req, res) => {
 
   // let body_params=req.body
   console.log(req.body, 'req') // print all response
+  console.log('myreq entry',req.body.entry);
+  console.log('myreq changes',req.body.entry.changes);
+  console.log('myreq changes value msg',req.body.entry.changes.value.messages);
+
 
   if (!req.isXHubValid()) {
     console.log('Warning - request header X-Hub-Signature not present or invalid');
@@ -134,11 +138,14 @@ app.post('/whatsapp_webhook', (req, res) => {
 
   if (req.body == {}) {
     console.log("{}")
-    return res.end("404");
+    return res.end();
   } 
   else if(req.body==undefined){
     console.log("undefined")
-    return res.end("404");
+    return res.end();
+  }
+  if(req.body.entry==undefined || req.body.entry.changes==undefined || req.body.entry.changes.value.messages==undefined ){
+    return res.end();
   }
   else {
     let msg_body = req.body.entry[0]?.changes[0]?.value.messages[0]?.text.body;
