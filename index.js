@@ -6,6 +6,7 @@ var xhub = require('express-x-hub');
 var received_updates = [];
 let sendersnum;
 let sendersMsg;
+let username;
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
@@ -72,7 +73,7 @@ async function finduserindb() {
         name: "whatsapp user",
         number: sendersnum,
         message: [{
-          from: 'whatsapp user',
+          from: username,
           msg: sendersMsg,
           mark: 'unread'
 
@@ -86,7 +87,7 @@ async function finduserindb() {
         {
           $push: {
             message: {
-              from: 'whatsapp user',
+              from: username,
               msg: sendersMsg,
               mark: 'unread'
             }
@@ -162,6 +163,7 @@ app.post('/whatsapp_webhook', (req, res) => {
     console.log('request header X-Hub-Signature validated', msg_body, from,namee);
     sendersnum = from;
     sendersMsg = msg_body;
+    username=namee;
     console.log(sendersMsg, sendersnum, 'cus-naming')
     finduserindb();
     // Process the Facebook updates here
