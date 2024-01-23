@@ -151,6 +151,12 @@ app.post('/whatsapp_webhook', (req, res) => {
     // Code that might throw an exception
     // ...
 
+    if(req.body.entry[0].changes[0].value.messages[0].text.body==undefined || req.body.entry[0].changes[0].value.messages[0].from==undefined ){
+      console.log('undefind')
+    }else{
+
+   
+
     let msg_body = req.body.entry[0].changes[0].value.messages[0].text.body;
   let from = req.body.entry[0].changes[0].value.messages[0].from;
   console.log('request header X-Hub-Signature validated', msg_body, from);
@@ -192,6 +198,7 @@ app.post('/whatsapp_webhook', (req, res) => {
     }
   }
   finduserindb();
+}
 
   } catch (error) {
     // Code to handle the exception
@@ -205,6 +212,7 @@ app.post('/whatsapp_webhook', (req, res) => {
 
 
   res.status(200);
+  
 })
 
 
