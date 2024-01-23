@@ -149,7 +149,7 @@ try {
     console.log("undefined")
     return res.end();
   }
-  if(req.body.entry[0]==undefined || req.body.entry.changes[0]==undefined || req.body.entry.changes[0].value.messages[0]==undefined ){
+  if(req.body.entry[0]==undefined || req.body.entry[0].changes[0]==undefined || req.body.entry[0].changes[0].value.messages[0]==undefined ){
     return res.end();
   }
   else {
