@@ -4,8 +4,6 @@ const body_parser=require('body-parser');
 const port = 8800;
 var xhub = require('express-x-hub');
 var received_updates = [];
-let sendersnum;
-let sendersMsg;
 
 
 app.use(xhub({ algorithm: 'sha1', secret: "36246e7dd97d4b4c0c1bb44a33a334a5"}));
@@ -72,9 +70,6 @@ app.post('/whatsapp_webhook', (req, res) => {
     let msg_body=req.body.entry[0].changes[0].value.messages[0].text.body;
     let from=req.body.entry[0].changes[0].value.messages[0].from;
     console.log('request header X-Hub-Signature validated',msg_body,from);
-    sendersnum=from;
-    sendersMsg=msg_body;
-    console.log(sendersMsg,sendersnum,'cus-naming')
    
   // Process the Facebook updates here
   received_updates.unshift(req.body);
