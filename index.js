@@ -167,7 +167,8 @@ app.post('/whatsapp_webhook', (req, res) => {
     received_updates.unshift(req.body);
     
     // res.status(200);
-    res.end();
+    // res.end();
+    res.status(200).end();
     } catch (error) {
       console.log(error,'error from inside')
     }
