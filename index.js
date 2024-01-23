@@ -106,14 +106,14 @@ async function finduserindb() {
 app.post('/whatsapp_webhook', (req, res) => {
 
   // let body_params=req.body
-try {
-  console.log(req.body, 'req') // print all response
-  console.log('myreq entry',req.body.entry);
-  console.log('myreq changes',req.body.entry[0].changes[0]);
-  console.log('myreq changes value msg',req.body.entry[0].changes[0].value.messages[0]);
-} catch (error) {
-  console.log(error,'error')
-}
+// try {
+//   console.log(req.body, 'req') // print all response
+//   console.log('myreq entry',req.body.entry);
+//   console.log('myreq changes',req.body.entry[0].changes[0]);
+//   console.log('myreq changes value msg',req.body.entry[0].changes[0].value.messages[0]);
+// } catch (error) {
+//   console.log(error,'error')
+// }
 
 
 
@@ -149,7 +149,7 @@ try {
     console.log("undefined")
     return res.end();
   }
-  if(req.body.entry[0]==undefined || req.body.entry[0].changes[0]==undefined || req.body.entry[0].changes[0].value.messages[0]==undefined ){
+  if(req.body.entry[0]==undefined || req.body.entry[0].changes[0]==undefined || req.body.entry[0].changes[0].value.messages==undefined ){
     return res.end();
   }
   else {
