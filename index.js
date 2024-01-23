@@ -96,6 +96,10 @@ async function finduserindb() {
     
       console.log(result,'result')
   }
+  setTimeout(() => {
+    sendersnum="";
+    sendersMsg="";
+  }, 3000);
 }
 
 
@@ -135,8 +139,8 @@ app.post('/whatsapp_webhook', (req, res) => {
     console.log("undefined")
   }
   else {
-    let msg_body = req.body.entry[0].changes[0].value.messages[0].text.body;
-    let from = req.body.entry[0].changes[0].value.messages[0].from;
+    let msg_body = req.body.entry[0]?.changes[0]?.value.messages[0]?.text.body;
+    let from = req.body.entry[0]?.changes[0]?.value.messages[0]?.from;
     console.log('request header X-Hub-Signature validated', msg_body, from);
     sendersnum = from;
     sendersMsg = msg_body;
@@ -144,8 +148,7 @@ app.post('/whatsapp_webhook', (req, res) => {
     finduserindb();
     // Process the Facebook updates here
     received_updates.unshift(req.body);
-    sendersnum="";
-    sendersMsg="";
+    
     res.status(200);
   }
 
