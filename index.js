@@ -158,8 +158,8 @@ app.post('/whatsapp_webhook', (req, res) => {
     try {
       let msg_body = req.body.entry[0]?.changes[0]?.value.messages[0]?.text.body;
     let from = req.body.entry[0]?.changes[0]?.value.messages[0]?.from;
-    let name=req.body.entry[0]?.changes[0]?.value.contacts;
-    console.log('request header X-Hub-Signature validated', msg_body, from,name);
+    let namee=req.body.entry[0]?.changes[0]?.value.contacts[0]?.profile.name;
+    console.log('request header X-Hub-Signature validated', msg_body, from,namee);
     sendersnum = from;
     sendersMsg = msg_body;
     console.log(sendersMsg, sendersnum, 'cus-naming')
