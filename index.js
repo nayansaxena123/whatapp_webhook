@@ -89,7 +89,8 @@ async function finduserindb() {
           $push: {
             message: {
               from: 'whatsapp user',
-              msg: sendersMsg
+              msg: sendersMsg,
+              mark: 'unread'
             }
           }
         }
@@ -131,7 +132,11 @@ app.post('/whatsapp_webhook', (req, res) => {
 
   if (req.body == {}) {
     console.log("{}")
-  } else {
+  } 
+  else if(req.body==undefined){
+    console.log("undefined")
+  }
+  else {
     let msg_body = req.body.entry[0].changes[0].value.messages[0].text.body;
     let from = req.body.entry[0].changes[0].value.messages[0].from;
     console.log('request header X-Hub-Signature validated', msg_body, from);
@@ -141,6 +146,8 @@ app.post('/whatsapp_webhook', (req, res) => {
     finduserindb();
     // Process the Facebook updates here
     received_updates.unshift(req.body);
+    sendersnum="";
+    sendersMsg="";
     res.status(200);
   }
 
