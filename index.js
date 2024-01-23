@@ -134,9 +134,11 @@ app.post('/whatsapp_webhook', (req, res) => {
 
   if (req.body == {}) {
     console.log("{}")
+    return res.end("404");
   } 
   else if(req.body==undefined){
     console.log("undefined")
+    return res.end("404");
   }
   else {
     let msg_body = req.body.entry[0]?.changes[0]?.value.messages[0]?.text.body;
