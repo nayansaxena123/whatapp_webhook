@@ -68,8 +68,7 @@ async function finduserindb() {
 
   if (user == null) {
     console.log('not found');
-    async function test() {
-      await mSchema.create({
+   let redult= await mSchema.create({
         name: "whatsapp user",
         number: sendersnum,
         message: [{
@@ -79,11 +78,10 @@ async function finduserindb() {
 
         }]
       })
-    }
-    test();
+    
+    console.log(redult,'redult')
   } else {
-    async function tst() {
-      await mSchema.updateOne(
+    let result=await mSchema.updateOne(
         { number: sendersnum },
         {
           $push: {
@@ -95,8 +93,8 @@ async function finduserindb() {
           }
         }
       )
-    }
-    tst();
+    
+      console.log(result,'result')
   }
 }
 
