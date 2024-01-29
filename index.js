@@ -18,13 +18,14 @@ const msgSchema = new mongoose.Schema({
   number: String,
   message: [Schema.Types.Mixed]
 },
+{
+  timestamps: true
+},
   {
     strict: false
   }
   ,
-  {
-    timestamps: true
-  })
+ )
 
 mongoose.model('replyMsg', msgSchema)
 
