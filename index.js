@@ -66,7 +66,33 @@ app.get("/whatsapp_webhook", (req, res) => {
 
 async function finduserindb() {
   let user = await mSchema.findOne({ number: sendersnum })
-  console.log(user, 'user')
+  console.log(user, 'user');
+
+  // time and date setup 
+const date = new Date();
+const options = { timeZone: 'Asia/Kolkata' };
+
+const formatter = new Intl.DateTimeFormat('en-IN', options);
+const istDate = formatter.format(date);
+
+console.log('Current IST Date and Time:', istDate);
+
+
+const time = new Date();
+const timeoptions = {
+  timeZone: 'Asia/Kolkata',
+  hour: 'numeric',
+  minute: 'numeric',
+};
+
+const timeformatter = new Intl.DateTimeFormat('en-IN', timeoptions);
+const istDateTime = timeformatter.format(time);
+
+console.log('Current IST Date and Time:', istDateTime);
+
+
+// end here
+  
 
   if (user == null) {
     console.log('not found');
@@ -76,7 +102,10 @@ async function finduserindb() {
         message: [{
           from: username,
           msg: sendersMsg,
-          mark: 'unread'
+          mark: 'unread',
+          date:istDate,
+          time:istDateTime
+
 
         }]
       })
@@ -191,3 +220,7 @@ app.listen(port, () => {
 });
 
 // const app1=express().use(body_parser.json)
+
+
+
+
