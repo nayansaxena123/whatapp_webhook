@@ -119,7 +119,9 @@ console.log('Current IST Date and Time:', istDateTime);
             message: {
               from: username,
               msg: sendersMsg,
-              mark: 'unread'
+              mark: 'unread',
+              date:istDate,
+              time:istDateTime
             }
           }
         }
